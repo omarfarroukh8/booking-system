@@ -1,0 +1,239 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background: #f4f4f4;
+            margin:0;
+            padding:0;
+        }
+
+        .navbar{
+            background:#111827;
+            padding:15px;
+            color:white;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .navbar a{
+            color:white;
+            text-decoration:none;
+            margin-left:15px;
+        }
+
+        .container{
+            width:90%;
+            margin:auto;
+            margin-top:30px;
+        }
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:20px;
+        }
+
+        .card{
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .card h2{
+            margin:0;
+            font-size:40px;
+        }
+
+        .booking-box{
+            background:white;
+            margin-top:30px;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        table th, table td{
+            border-bottom:1px solid #ddd;
+            padding:12px;
+            text-align:left;
+        }
+
+        input{
+            padding:10px;
+            margin:5px;
+        }
+
+        button{
+            padding:10px 15px;
+            border:none;
+            background:#2563eb;
+            color:white;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#1d4ed8;
+        }
+
+        .delete-btn{
+            background:red;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>Booking System</h2>
+
+<div class="row mt-4">
+
+    <div class="col-md-4">
+        <div class="card bg-primary text-white p-3">
+            <h4>Total Bookings</h4>
+            <h2>{{ total_bookings }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-success text-white p-3">
+            <h4>Total Customers</h4>
+            <h2>{{ total_customers }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-warning text-dark p-3">
+            <h4>Revenue</h4>
+            <h2>${{ revenue }}</h2>
+        </div>
+    </div>
+
+</div>
+
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+        <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Users</h3>
+            <h2>{{ users }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Bookings</h3>
+            <h2>{{ bookings }}</h2>
+        </div>
+
+    </div>
+
+
+    <div class="booking-box">
+
+        <h2>Add Booking</h2>
+
+        <form method="POST" action="/add-booking">
+
+            <input type="text" name="name" placeholder="Customer Name" required>
+
+            <input type="text" name="phone" placeholder="Phone Number" required>
+
+            <input type="date" name="date" required>
+
+            <input type="time" name="time" required>
+
+            <button type="submit">
+                Add Booking
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="booking-box">
+
+        <h2>Latest Bookings</h2>
+
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            {% for booking in latest %}
+
+            <tr>
+
+                <td>{{ booking.id }}</td>
+
+                <td>{{ booking.name }}</td>
+
+                <td>{{ booking.phone }}</td>
+
+                <td>{{ booking.date }}</td>
+
+                <td>{{ booking.time }}</td>
+
+               <td>
+
+    <span class="badge bg-success">
+        {{ booking.status }}
+    </span>
+
+</td>
+                <td>
+     <a href="/edit/{{ booking.id }}"
+   class="btn btn-sm btn-warning">
+   Edit
+</a>
+
+   <a href="/delete/{{ booking.id }}"
+   class="btn btn-sm btn-danger">
+   Delete
+</a>
+</td>
+            </tr>
+
+            {% endfor %}
+
+        <table class="table table-dark table-hover table-bordered mt-4">
+
+    </div>
+
+</div>
+
+</body>
+</html>
