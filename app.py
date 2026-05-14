@@ -266,3 +266,19 @@ def logout():
 # =========================
 if __name__ == "__main__":
     app.run(hosts="0.0.0.0", port=10000)
+    import pandas as pd
+from flask import send_file
+from sqlalchemy import text
+
+@app.route('/export')
+def export_excel():
+    # هون بجيب كل الحجوزات من الداتا بيز
+    with db.engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM booking"))  # بدلي booking باسم الجدول عندك
+        bookings = [dict(row._mapping) for row in result]
+    
+    df = pd.DataFrame(bookings)
+    file_path = "/tmp/bookings.xlsx"
+    df.to_excel(file_path, index=False)
+    
+    return send_file(file_path, as_attachment=True, download_name="bookings.xlsx")
