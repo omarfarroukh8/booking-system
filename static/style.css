@@ -64,12 +64,12 @@ body {
 }
 
 /* DARK MODE */
-.dark-mode {
-    background-color: #0f172a !important;
-    color: white !important;
-    min-height: 100vh;
+body.dark-mode {
+  background-color: #0f172a !important;
+  color: white !important;
+  min-height: 100vh;
 }
 
-.dark-mode * {
-    color: white !important;
+body.dark-mode * {
+  color: white !important;
 }
