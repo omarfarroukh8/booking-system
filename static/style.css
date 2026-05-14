@@ -1,69 +1,74 @@
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #f5f6fa;
+body { 
+  margin: 0; 
+  font-family: 'Segoe UI', sans-serif; 
+  background: #f5f6fa; 
+  color: #111827;
+  transition: 0.3s;
 }
 
 /* LOGIN */
-.login-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+.login-body { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
 }
 
-.login-box {
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+.login-box { 
+  background: white; 
+  padding: 40px; 
+  border-radius: 12px; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
 }
 
-.login-box input {
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    width: 100%;
+.login-box input { 
+  display: block; 
+  margin: 10px 0; 
+  padding: 10px; 
+  width: 100%; 
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
 
 /* SIDEBAR */
-.sidebar {
-    position: fixed;
-    width: 220px;
-    height: 100vh;
-    background: #111827;
-    color: white;
-    padding: 20px;
+.sidebar { 
+  position: fixed; 
+  width: 220px; 
+  height: 100vh; 
+  background: #111827; 
+  color: white; 
+  padding: 20px; 
 }
 
-.sidebar a {
-    display: block;
-    color: white;
-    text-decoration: none;
-    margin: 10px 0;
+.sidebar a { 
+  display: block; 
+  color: white; 
+  text-decoration: none; 
+  margin: 10px 0; 
 }
 
 /* MAIN */
-.main {
-    margin-left: 240px;
-    padding: 20px;
+.main { 
+  margin-left: 240px; 
+  padding: 20px; 
 }
 
 /* CARDS */
-.grid {
-    display: flex;
-    gap: 15px;
+.grid { 
+  display: flex; 
+  gap: 15px; 
 }
 
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    flex: 1;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+.card { 
+  background: white; 
+  padding: 20px; 
+  border-radius: 15px; 
+  flex: 1; 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
 }
 
 /* DARK MODE */
+
 body.dark-mode {
   background-color: #0f172a !important;
   color: white !important;
@@ -72,4 +77,26 @@ body.dark-mode {
 
 body.dark-mode * {
   color: white !important;
+}
+
+.dark-mode {
+  background-color: #0f172a !important;
+  color: white !important;
+}
+
+.dark-mode .login-box,
+.dark-mode .card {
+  background: #1e293b !important;
+  color: white !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3) !important;
+}
+
+.dark-mode input {
+  background: #334155 !important;
+  color: white !important;
+  border: 1px solid #475569 !important;
+}
+
+.dark-mode .sidebar {
+   background: #1e293b !important;
 }
