@@ -294,5 +294,5 @@ def export_excel():
         io.BytesIO(output.getvalue().encode('utf-8-sig')),
         mimetype='text/csv',
         as_attachment=True,
-        download_name='bookings.xlsx'
+        download_name='bookings.csv'
     )
