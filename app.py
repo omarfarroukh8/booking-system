@@ -265,20 +265,34 @@ def logout():
 # RUN
 # =========================
 if __name__ == "__main__":
-    app.run(hosts="0.0.0.0", port=10000)
-    import pandas as pd
-from flask import send_file
-from sqlalchemy import text
+    app.run(host="0.0.0.0", port=10000)
 
+import csv
+import io   
+from flask import send_file
 @app.route('/export')
 def export_excel():
-    # هون بجيب كل الحجوزات من الداتا بيز
-    with db.engine.connect() as conn:
-        result = conn.execute(text("SELECT * FROM booking"))  # بدلي booking باسم الجدول عندك
-        bookings = [dict(row._mapping) for row in result]
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM bookings")
+    bookings = cursor.fetchall()
+    conn.close()
     
-    df = pd.DataFrame(bookings)
-    file_path = "/tmp/bookings.xlsx"
-    df.to_excel(file_path, index=False)
+    output = io.StringIO()
+    writer = csv.writer(output)
     
-    return send_file(file_path, as_attachment=True, download_name="bookings.xlsx")
+    # الهيدر - بدليها حسب أعمدة جدولك
+    writer.writerow(['id', 'name', 'phone', 'date', 'time'])
+    
+    # البيانات
+    for row in bookings:
+        writer.writerow(row)
+    
+    output.seek(0)
+    
+    return send_file(
+        io.BytesIO(output.getvalue().encode('utf-8-sig')),
+        mimetype='text/csv',
+        as_attachment=True,
+        download_name='bookings.xlsx'
+    )
